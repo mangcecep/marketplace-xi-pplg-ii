@@ -24,8 +24,11 @@ const products = [
         qty: 10
     },
 ]
-
+let cartInit = 0
 const listProducts = document.getElementById('list-products')
+const cartTotal = document.getElementById('cart-total')
+
+cartTotal.innerHTML = cartInit
 const productView = products.map(product => `<div class="col-lg-4 col-12">
                 <div class="card" style="width: 18rem;">
                     <img src="${product.img_url}" class="card-img-top" alt="product-1">
@@ -34,12 +37,19 @@ const productView = products.map(product => `<div class="col-lg-4 col-12">
                         <p class="card-text">Harga: <span>Rp. ${product.price}</span></p>
                         <p class="card-text">Qty: <span>${product.qty}</span></p>
                         <p class="card-text">Deskripsi: ${product.description}</p>
-                        <a href="#" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="addToCart()">
                             <i class="fa-solid fa-cart-shopping text-light"></i>
                             add to cart
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>`).join(",").replaceAll(",", " ")
 
 listProducts.innerHTML = productView
+
+
+function addToCart(){
+    cartInit++
+    cartTotal.innerHTML = cartInit
+    console.log(cartInit)
+}
