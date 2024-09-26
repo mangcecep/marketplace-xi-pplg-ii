@@ -26,9 +26,9 @@
                     </li>
                 </ul>
                 <div class="d-flex" role="search">
-                    <button type="button" class="bg-dark text-light">
-                        <i class="fa-solid fa-cart-shopping text-light"></i> <span
-                            class="badge text-bg-secondary" id="cart-total"></span>
+                    <button type="button" class="bg-dark text-light" onclick="showListCart()">
+                        <i class="fa-solid fa-cart-shopping text-light"></i> <span class="badge text-bg-secondary"
+                            id="cart-total"></span>
                     </button>
                 </div>
             </div>
@@ -36,6 +36,12 @@
     </nav>
 
     <div class="container p-4">
+        <div class="row d-none" id="list-cart-products">
+            <div id="list-cart-show">
+                <p>disini nanti ada list produk</p>
+            </div>
+            <button class="btn btn-dark" onclick="backToProduct()">Back To Product</button>
+        </div>
         <div class="row" id="list-products"></div>
     </div>
 
