@@ -29,6 +29,8 @@ let cartInit = 0
 const listProducts = document.getElementById('list-products')
 const cartTotal = document.getElementById('cart-total')
 const cartList = document.getElementById('list-cart-products')
+const listCartShow = document.getElementById('list-cart-show')
+
 const showListCart = () => {
     listProducts.classList.add("d-none")
     cartList.classList.remove("d-none")
@@ -37,6 +39,48 @@ const backToProduct = () => {
     listProducts.classList.remove("d-none")
     cartList.classList.add("d-none")
 }
+
+window.onload = showDetailCart(listCarts)
+
+function showDetailCart(listCarts) {
+    let total = 0
+    return listCartShow.innerHTML = listCarts.length === 0 ?
+        `<h2 class="text-danger text-center my-4">Barang belum ditambahkan ke dalam ke ranjang</h2>` :
+        `<div class="table table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Product Name</th>
+                        <th>Product Image</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${listCarts.map((produk, index) => {
+            total += produk.qty * produk.price
+            return `<tr>
+                        <td>${index + 1}</td>
+                        <td>${produk.product_name}</td>
+                        <td>
+                            <img src="${produk.img_url}" alt="image" class="img-thumbnail" width="100"/>
+                        </td>
+                        <td>${rupiah(produk.price)}</td>
+                        <td>${produk.qty}</td>
+                        <td>${rupiah(produk.qty * produk.price)}</td>
+                    </tr>
+                    ${index === listCarts.length - 1 && `<tr>
+                        <td colspan="5">TOTAL</td>
+                        <td>${rupiah(total)}</td>
+                    </tr>`}
+                `})}
+                </tbody>
+            </table>
+        </div>`
+}
+
 
 cartTotal.innerHTML = cartInit
 
@@ -69,7 +113,6 @@ listProducts.innerHTML = productView(products)
 
 
 function addToCart(id) {
-
     let newStock = products
     let selectedProduct = newStock.find(produk => produk.id === id)
 
@@ -119,4 +162,5 @@ function addToCart(id) {
     cartInit++
     cartTotal.innerHTML = cartInit
     listProducts.innerHTML = productView(products)
+    showDetailCart(listCarts)
 }
